@@ -18,10 +18,6 @@ describe("TodoController", () => {
       todoText = "let's do something";
     });
 
-    afterEach(() => {
-      if (todoPresenter) todoPresenter.unsubscribe();
-    });
-
     test("creating a new todo when none exists", async () => {
       const createTodoMock = new CreateTodoMockBuilder()
         .withVariables({

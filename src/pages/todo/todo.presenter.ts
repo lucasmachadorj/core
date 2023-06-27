@@ -29,10 +29,6 @@ export class TodoPresenter {
     return this.todos.getAll();
   }
 
-  public unsubscribe(): void {
-    this.todosSubscription.unsubscribe();
-  }
-
   private watchedQuery(): ObservableQuery {
     return this.client.watchQuery({
       query: GET_ALL_TODOS,
