@@ -1,40 +1,77 @@
 import { MockLink, MockedResponse } from "@apollo/client/testing";
 
 import { CREATE_TODO, GET_ALL_TODOS } from "./api";
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from "@apollo/client";
 
-const createTodoMock: MockedResponse = {
-  request: {
-    query: CREATE_TODO,
-    variables: {
-      text: "let's do something",
-    },
-  },
-  result: {
-    data: {
-      createTodo: {
-        id: "1",
-        text: "let's do something",
-        completed: false,
+export class ApolloClientBuilder {
+  private cache: InMemoryCache;
+  constructor() {
+    this.cache = new InMemoryCache({
+      addTypename: false,
+    });
+  }
+
+  withMocks(mocks: MockedResponse[]): ApolloClient<NormalizedCacheObject> {
+    return new ApolloClient({
+      cache: this.cache,
+      link: new MockLink(mocks),
+    });
+  }
+}
+
+export class CreateTodoMockBuilder {
+  private variables: any;
+  private response: any;
+  constructor() {}
+
+  withVariables(variables: any) {
+    this.variables = variables;
+    return this;
+  }
+
+  withResponse(response: any) {
+    this.response = response;
+    return this;
+  }
+
+  build(): MockedResponse {
+    return {
+      request: {
+        query: CREATE_TODO,
+        variables: this.variables,
       },
-    },
-  },
-};
-
-const getAllTodosStub: MockedResponse = {
-  request: {
-    query: GET_ALL_TODOS,
-  },
-  result: {
-    data: {
-      todos: [
-        {
-          id: "1",
-          text: "let's do something",
-          completed: false,
+      result: {
+        data: {
+          createTodo: this.response,
         },
-      ],
-    },
-  },
-};
+      },
+    };
+  }
+}
 
-export const mockLink = new MockLink([createTodoMock, getAllTodosStub]);
+export class GetAllTodosMockBuilder {
+  private response: any;
+  constructor() {}
+
+  withResponse(response: any) {
+    this.response = response;
+    return this;
+  }
+
+  build(): MockedResponse {
+    return {
+      request: {
+        query: GET_ALL_TODOS,
+      },
+      result: {
+        data: {
+          todos: this.response,
+        },
+      },
+    };
+  }
+}
