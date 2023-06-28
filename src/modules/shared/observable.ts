@@ -1,24 +1,28 @@
-export class BehaviorSubject<T> {
-  private value: T;
-  private observers: ((value: T) => void)[] = [];
+export class Observable<T> {
+  private _value: T;
+  private observers: ((_value: T) => void)[] = [];
 
-  constructor(initialValue: T) {
-    this.value = initialValue;
+  constructor(initial_Value: T) {
+    this._value = initial_Value;
   }
 
-  next(value: T): void {
-    this.value = value;
+  next(_value: T): void {
+    this._value = _value;
     this.notify();
   }
 
-  subscribe(key: string, observer: (value: T) => void): void {
+  subscribe(observer: (_value: T) => void): void {
     this.observers.push(observer);
-    observer(this.value);
+    observer(this._value);
+  }
+
+  get value(): T {
+    return this._value;
   }
 
   private notify(): void {
     for (const observer of this.observers) {
-      observer(this.value);
+      observer(this._value);
     }
   }
 }

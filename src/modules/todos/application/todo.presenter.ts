@@ -6,9 +6,10 @@ import {
 import { Todo, Todos } from "../models/todo.viewmodel";
 import { GET_ALL_TODOS } from "../gateway/api";
 import { Subscription } from "zen-observable-ts";
+import { Observable } from "../../shared/observable";
 
 type TodoPresenterState = {
-  todos: Todos;
+  todos: Observable<Todos>;
 };
 
 export class TodoPresenter {
@@ -17,7 +18,7 @@ export class TodoPresenter {
 
   constructor(private client: ApolloClient<NormalizedCacheObject>) {
     this.state = {
-      todos: new Todos([]),
+      todos: new Observable(new Todos([])),
     };
     this.todosSubscription = this.watchedQuery().subscribe({
       next: this.handleStateChange.bind(this),
@@ -27,6 +28,10 @@ export class TodoPresenter {
 
   getAllTodos(): Todo[] {
     return this.todos.getAll();
+  }
+
+  async loadTodos(callback: () => void): Promise<void> {
+    this.state.todos.subscribe(callback);
   }
 
   private watchedQuery(): ObservableQuery {
@@ -55,7 +60,7 @@ export class TodoPresenter {
   }
 
   private get todos(): Todos {
-    return this.state.todos;
+    return this.state.todos.value;
   }
 
   private get todosSubscription(): Subscription {
