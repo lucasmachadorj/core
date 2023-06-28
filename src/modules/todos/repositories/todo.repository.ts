@@ -1,5 +1,5 @@
 import { ApolloClient, NormalizedCacheObject, gql } from "@apollo/client";
-import { CREATE_TODO } from "./api";
+import { CREATE_TODO } from "../gateway/api";
 
 export class TodoRepository {
   constructor(private client: ApolloClient<NormalizedCacheObject>) {}

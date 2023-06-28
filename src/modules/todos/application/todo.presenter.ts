@@ -3,8 +3,8 @@ import {
   NormalizedCacheObject,
   ObservableQuery,
 } from "@apollo/client";
-import { Todo, Todos } from "./todo.viewmodel";
-import { GET_ALL_TODOS } from "./api";
+import { Todo, Todos } from "../models/todo.viewmodel";
+import { GET_ALL_TODOS } from "../gateway/api";
 import { Subscription } from "zen-observable-ts";
 
 type TodoPresenterState = {
@@ -25,7 +25,7 @@ export class TodoPresenter {
     });
   }
 
-  async getAllTodos(): Promise<Todo[]> {
+  getAllTodos(): Todo[] {
     return this.todos.getAll();
   }
 

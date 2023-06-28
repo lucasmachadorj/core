@@ -1,4 +1,4 @@
-import { TodoRepository } from "./todo.repository";
+import { TodoRepository } from "../repositories/todo.repository";
 
 export class TodoController {
   constructor(private todoRepository: TodoRepository) {}

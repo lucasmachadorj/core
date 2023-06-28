@@ -9,7 +9,7 @@ import {
   TodoRepository,
   TodoController,
   TodoPresenter,
-} from "../../../src/pages/todo";
+} from "../../../src/modules/todos/";
 
 describe("TodoController", () => {
   describe("Create Todo", () => {
