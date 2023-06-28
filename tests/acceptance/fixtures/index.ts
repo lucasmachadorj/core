@@ -1,6 +1,6 @@
 import { MockLink, MockedResponse } from "@apollo/client/testing";
 
-import { CREATE_TODO, GET_ALL_TODOS } from "./api";
+import { CREATE_TODO, GET_ALL_TODOS } from "../../../src/pages/todo/api";
 import {
   ApolloClient,
   InMemoryCache,

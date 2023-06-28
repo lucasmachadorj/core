@@ -3,9 +3,13 @@ import {
   ApolloClientBuilder,
   CreateTodoMockBuilder,
   GetAllTodosMockBuilder,
-} from "./fixtures";
+} from "../fixtures";
 
-import { TodoRepository, TodoController, TodoPresenter } from ".";
+import {
+  TodoRepository,
+  TodoController,
+  TodoPresenter,
+} from "../../../src/pages/todo";
 
 describe("TodoController", () => {
   describe("Create Todo", () => {

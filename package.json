@@ -5,7 +5,10 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:dev": "jest --watchAll"
+    "test:dev": "jest --watchAll",
+    "test:core": "jest -c jest.config.core.js",
+    "test:core:dev": "jest --watchAll -c jest.config.core.js",
+    "test:infra:out": "jest --watchAll"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
